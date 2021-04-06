@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+      .error{
+        color: red;
+      }
+    </style>
+      <div id='app'>
+        <p v-if="errors.length">
+          <ul>
+            <li class="error" v-for="error in errors">{{ error }}</li>
+          </ul>
+        </p>
+    <form @submit.prevent="validate">
+      氏名
+      <input type="text" v-model="contact.yourName">
+      <br>
+      電話番号
+      <input type="tel" v-model="contact.tel">
+      <br>
+      メールアドレス
+      <input type="email"  v-model.lazy="contact.email">
+      <br>
+      性別
+      <input type="radio" value="male" v-model="contact,gender"><br>
+      <input type="radio" value="female" v-model="contact,gender"><br>
+      <input type="radio" value="other" v-model="contact,gender"><br>
+      年齢
+      <select v-model="contact.age">
+        <option disabled value="">年齢を選択してください</option>
+        <oprion>10代</oprion>
+        <oprion>20代</oprion>
+        <oprion>30代</oprion>
+        <oprion>40代</oprion>
+      </select>
+      <br>
+      このサイトを知った理由
+      <input type="checkbox" value="Webサイト" v-model="contact.attracts">
+      <br>
+      注意事項に同意する
+      <input type="checkbox" v-model="contact.caution">
+      <br>
+      <input type="submit" value="送信">
+
+    </form>
+  </div>
+</body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <script>
+    let app = new Vue({
+      el:'#app',
+      data(){
+        return { 
+          contact: {
+            yourName: '',
+            tel: '',
+            email: '',
+            gender: '',
+            age: '',
+            message: '',
+            attracts: [],
+            caution: false
+          },
+            errors: []
+        }
+      },
+      methods:{
+        validate(){
+          this.errors = []
+          if(!this.contact.caution)
+          
+            this.errors.push('注意事項にチェックしてください')
+        }
+      }
+    })
+  </script>
+
+</html>
